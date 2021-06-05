@@ -1,0 +1,36 @@
+.reservation {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 20em;
+}
+
+.reservation > label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin: 1em;
+}
+
+.reservation input {
+    padding: 1em;
+}
+
+.reservation > input[type=submit] {
+    width: 100%;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    border: 1px black solid;
+}
+
+.reservation > label > input[type=checkbox] {
+    border: 1px black solid;
+    border-radius: 5em;
+    width: 2em;
+    height: 2em;
+}
