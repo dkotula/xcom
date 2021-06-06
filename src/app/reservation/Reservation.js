@@ -6,6 +6,7 @@ import {getAllSeats} from "../seats/duck/operations";
 
 let numberOfSeats = 0;
 let nextTo= false;
+let defaultList= [];
 
 const Reservation = ({seats, getAllSeats}) => {
 
@@ -22,10 +23,14 @@ const Reservation = ({seats, getAllSeats}) => {
         if (isCorrect) {
             document.querySelector(".reservation").style.display = "none"
             document.querySelector(".seatsPage").style.display = "block"
-            getAllSeats()
+            getAllSeats(setDefaultSeats, numberOfSeats, nextTo)
         }
 
         event.preventDefault()
+    }
+
+    const setDefaultSeats = (list) => {
+        defaultList = list
     }
 
     return (
@@ -41,7 +46,7 @@ const Reservation = ({seats, getAllSeats}) => {
                 </label>
                 <input type="submit" value="Wybierz miejsca"/>
             </form>
-            <Seats numberOfSeats={numberOfSeats}  nextTo={nextTo} seats={seats}/>
+            <Seats numberOfSeats={numberOfSeats}  nextTo={nextTo} seats={seats} list={defaultList}/>
         </div>
     )
 }
@@ -51,7 +56,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getAllSeats: () => dispatch(getAllSeats())
+    getAllSeats: (setDefaultSeats, numberOfSeats, nextTo) => dispatch(getAllSeats(setDefaultSeats, numberOfSeats, nextTo))
 })
 
 export default connect(

@@ -3,7 +3,7 @@ import './seats.css';
 
 const Seats = (props) => {
     const [selectSeats, setSelectSeats] = useState([]);
-
+    console.log(props.list)
     const handleSubmit = (event) => {
         if (selectSeats.length !== props.numberOfSeats) {
             alert("Wybierz poprawna ilość miejsc")
