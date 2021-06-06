@@ -1,9 +1,14 @@
 import actions from './actions'
 
-const getDefaultList = (seats, numberOfSeats, nextTo) => {
-    let list = []
-    // TODO
-    return list
+const getDefaultList = (seats, numberOfSeats, nextTo,dispatch) => {
+    for(const seat of seats) {
+        if (!seat.reserved) {
+            dispatch(actions.addDefault(seat))
+            if (--numberOfSeats <= 0) {
+                break;
+            }
+        }
+    }
 }
 
 const fetchSeats = async () => {
@@ -11,10 +16,9 @@ const fetchSeats = async () => {
     return await response.json()
 }
 
-export const getAllSeats = (setDefaultSeats, numberOfSeats, nextTo) =>
+export const getAllSeats = (numberOfSeats, nextTo) =>
     async (dispatch) => {
         const seats = await fetchSeats()
-        const list = getDefaultList(seats, numberOfSeats, nextTo)
-        setDefaultSeats(list)
+        getDefaultList(seats, numberOfSeats, nextTo, dispatch)
         seats.map(seat => dispatch(actions.add(seat)))
     }

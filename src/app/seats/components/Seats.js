@@ -1,11 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import './seats.css';
 
 const Seats = (props) => {
-    const [selectSeats, setSelectSeats] = useState([]);
-    console.log(props.list)
     const handleSubmit = (event) => {
-        if (selectSeats.length !== props.numberOfSeats) {
+        if (props.seats.defaultSeats.length !== props.numberOfSeats) {
             alert("Wybierz poprawna ilość miejsc")
             event.preventDefault()
             return;
@@ -22,12 +20,12 @@ const Seats = (props) => {
         if (seat.reserved) {
             return
         }
-        if (selectSeats.find(element => element.id === id)) {
-            setSelectSeats(selectSeats.filter(item => item.id !== id));
+        if (props.seats.defaultSeats.find(element => element.id === id)) {
+            props.removeDefault(seat)
             event.target.style.backgroundColor = "white"
         }
         else {
-            setSelectSeats(oldArray => [...oldArray, seat]);
+            props.addDefault(seat);
             event.target.style.backgroundColor = "#d96028"
         }
     }
@@ -42,8 +40,8 @@ const Seats = (props) => {
                             gridColumnEnd: seat.cords.y + 2,
                             gridRowStart: seat.cords.x + 1,
                             gridRowEnd: seat.cords.x + 2,
-                            backgroundColor: seat.reserved ? "#302d2d" : "",
-                            cursor: seat.reserved ? "auto" : "pointer"
+                            cursor: seat.reserved ? "auto" : "pointer",
+                            backgroundColor: seat.reserved ? "#302d2d" : props.seats.defaultSeats.find(element => element.id === seat.id) ? "#d96028" : "#FFFFFF"
                         }}
                              onClick={seatClick}
                         />
@@ -71,7 +69,7 @@ const Seats = (props) => {
                 <h1>Twoja rezerwacja przebiegła pomyślnie!</h1>
                 <p>Wybrałeś miejsca:</p>
                 {
-                    selectSeats.map(seat =>
+                    props.seats.defaultSeats.map(seat =>
                         <div key={seat.id}>
                             <p>- rząd {seat.cords.x + 1}, miejsce {seat.cords.y + 1} ({seat.id})</p>
                         </div>
