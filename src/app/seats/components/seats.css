@@ -1,12 +1,32 @@
 .seats {
     display: none;
-    width: 100vw;
-    height: 100vh;
-    grid-template-columns: repeat(14, 1fr);
+    grid-template-columns: repeat(15, 1fr);
+    height: 80vh;
+    margin-top: 2em;
 }
 
-.seat {
-    width: 30px;
-    height: 30px;
+.seat, .menu > div > div {
+    width: 4em;
+    height: 4em;
     border: 1px black solid;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: calc(20vh - 2em);
+}
+
+.menu > div {
+    display: flex;
+    align-items: center;
+}
+
+.menu > div > div {
+    margin-right: 1em;
+}
+
+.App > div > div {
+    width: 90vw
 }
