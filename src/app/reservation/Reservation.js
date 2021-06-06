@@ -4,9 +4,10 @@ import Seats from "../seats/components/Seats";
 import {connect} from "react-redux";
 import {getAllSeats} from "../seats/duck/operations";
 
+let numberOfSeats = 0;
+let nextTo= false;
+
 const Reservation = ({seats, getAllSeats}) => {
-    let numberOfSeats = 0;
-    let nextTo= false;
 
     const handleSubmit = (event) => {
         numberOfSeats = parseInt(document.querySelector("input").value);
@@ -20,7 +21,7 @@ const Reservation = ({seats, getAllSeats}) => {
 
         if (isCorrect) {
             document.querySelector(".reservation").style.display = "none"
-            document.querySelector(".seats").style.display = "grid"
+            document.querySelector(".seatsPage").style.display = "block"
             getAllSeats()
         }
 
