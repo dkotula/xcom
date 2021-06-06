@@ -8,12 +8,41 @@ const Seats = (props) => {
             event.preventDefault()
             return;
         }
+        sort()
         document.querySelector(".seats").style.display = "none"
         document.querySelector(".menu").style.display = "none"
         document.querySelector(".success").style.display = "block"
 
         event.preventDefault()
     }
+
+    const sort = async () => {
+        let list = []
+        for (const seat of props.seats.defaultSeats) {
+            list.push(seat)
+            await props.removeDefault(seat)
+        }
+        list.sort(compareFunction)
+        list.forEach(seat => props.addDefault(seat))
+    }
+
+    const compareFunction = (seat1, seat2) => {
+        if (seat1.cords.x === seat2.cords.x) {
+            if (seat1.cords.y > seat2.cords.y) {
+                return 1
+            }
+            else {
+                return -1
+            }
+        }
+        if (seat1.cords.x > seat2.cords.x) {
+            return 1
+        }
+        else {
+            return -1
+        }
+    }
+
     const seatClick = (event) => {
         const id = event.target.id;
         const seat = props.seats.list.find(element => element.id === id);
@@ -75,7 +104,7 @@ const Seats = (props) => {
                         </div>
                     )
                 }
-                <h3>Dziękujemy! W razie problemów prsimy o kontakt z działem administracji.</h3>
+                <h3>Dziękujemy! W razie problemów prosimy o kontakt z działem administracji.</h3>
             </div>
         </div>
     )
