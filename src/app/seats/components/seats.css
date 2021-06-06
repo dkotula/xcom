@@ -1,0 +1,12 @@
+.seats {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: repeat(14, 1fr);
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    border: 1px black solid;
+}
